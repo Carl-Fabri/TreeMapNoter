@@ -29,7 +29,7 @@ public class MantenimientoNotas extends javax.swing.JFrame {
     public MantenimientoNotas() {
         initComponents();
         noteManager = new MantenimientoNotasController();
-        noteManager.InsertProducts();
+        noteManager.InsertNote();
         cbSelectNote.addItem("Seleccione un elemento");
         loadProductos();
     }
@@ -39,7 +39,7 @@ public class MantenimientoNotas extends javax.swing.JFrame {
         cbSelectNote.removeAllItems();
         cbSelectNote.addItem("Seleccione un elemento");
         
-        for (Map.Entry<LocalDateTime, Note> entry : noteManager.getBookMap().entrySet()) {
+        for (Map.Entry<LocalDateTime, Note> entry : noteManager.getNoteMap().entrySet()) {
             
             Note nota = entry.getValue();
             cbSelectNote.addItem(entry.getKey().format(formatter).toString());
@@ -74,7 +74,6 @@ public class MantenimientoNotas extends javax.swing.JFrame {
         txtMessage = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         btnDeleteNote = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -102,8 +101,11 @@ public class MantenimientoNotas extends javax.swing.JFrame {
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jButton1.setText("Registrar");
-
-        jButton2.setText("Editar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         btnDeleteNote.setText("Eliminar");
         btnDeleteNote.addActionListener(new java.awt.event.ActionListener() {
@@ -137,10 +139,7 @@ public class MantenimientoNotas extends javax.swing.JFrame {
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2)
                             .addComponent(txtTitle)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnDeleteNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(btnDeleteNote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(21, 21, 21))
         );
         jPanel1Layout.setVerticalGroup(
@@ -153,9 +152,7 @@ public class MantenimientoNotas extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(cbSelectNote, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(btnDeleteNote))
+                .addComponent(btnDeleteNote)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
@@ -192,6 +189,13 @@ public class MantenimientoNotas extends javax.swing.JFrame {
         noteManager.removeNote(LocalDateTime.parse(cbSelectNote.getSelectedItem().toString(),formatter));
         loadProductos();
     }//GEN-LAST:event_btnDeleteNoteActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       Note nota = new Note(txtTitle.getText(), txtMessage.getText(), LocalDateTime.now(), LocalDateTime.now());
+       noteManager.addNote(nota);
+       
+       loadProductos();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,7 +236,6 @@ public class MantenimientoNotas extends javax.swing.JFrame {
     private javax.swing.JButton btnDeleteNote;
     private javax.swing.JComboBox<String> cbSelectNote;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

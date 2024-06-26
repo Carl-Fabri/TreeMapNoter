@@ -13,7 +13,7 @@ import java.util.TreeMap;
  *
  * @author Carlos Fabricio
  */
-public class MantenimientoNotasController {
+public class MantenimientoNotasController implements IMantenimientoNotas{
     
     private TreeMap<LocalDateTime, Note> noteMap;
 
@@ -21,14 +21,14 @@ public class MantenimientoNotasController {
         noteMap = new TreeMap<>();
     }
     
-    public void InsertProducts(){
+    public void InsertNote(){
         noteMap.put(LocalDateTime.of(2023, 1, 1, 12, 0), new Note("Dia 1", "El dia comenzo caido como el caudal de una catarata.", LocalDateTime.of(2023, 1, 1, 12, 0), LocalDateTime.of(2023, 1, 1, 12, 0)));
         noteMap.put(LocalDateTime.of(2022, 1, 2, 11, 50), new Note("Dia 2", "Hay golpes en la vida, tan fuertes yo no se, golpes como el odio de...", LocalDateTime.of(2022, 1, 2, 11, 50), LocalDateTime.of(2022, 1, 2, 11, 50)));
         noteMap.put(LocalDateTime.of(2021, 6, 2, 9, 50), new Note("Dia 3", "De pronto nace toda aquella esperanza, nace tu sonrisa.", LocalDateTime.of(2021, 6, 2, 9, 50), LocalDateTime.of(2021, 6, 2, 9, 50)));
         noteMap.put(LocalDateTime.of(2020, 3, 19,2,20), new Note("Dia 4", "Anelado recuerdo de persona nostalgico, aparece ante mi y dame la esperanza....", LocalDateTime.of(2020, 3, 19,2,20), LocalDateTime.of(2020, 3, 19,2,20)));
     }
 
-    public void addBook(Note note) {
+    public void addNote(Note note) {
         noteMap.put(note.getCreateAt(), note);
     }
     
@@ -36,7 +36,7 @@ public class MantenimientoNotasController {
         noteMap.remove(key);
     }
 
-    public TreeMap<LocalDateTime, Note> getBookMap() {
+    public TreeMap<LocalDateTime, Note> getNoteMap() {
         return noteMap;
     }
 }
